@@ -1,0 +1,561 @@
+/* style.css */
+
+@import url("./reset.css");
+
+/* variables */
+:root {
+    --color-main: forestgreen;
+    --color-sec: white;
+    --spacing: 1rem;
+    --padding: 1rem;
+    --font-family-main: Arial, Helvetica, sans-serif;
+    --corners: calc(0.5 *var(--spacing));
+    
+    /* debugging */
+    * {
+        /* outline: solid red 1px; */
+    }
+}
+
+body {
+    background-color: var(--color-main);
+    color: white;
+    font-size: 1rem;
+    font-family: var(--font-family-main);
+
+    display: grid;
+    grid-template-columns: 24rem minmax(24rem, auto); 
+    grid-template-rows: auto 1fr;
+
+    /* set min-height so side bar can always fill up page vertically */
+    min-height: 100vh;
+}
+
+/* ============================================ Header ============================================ */
+
+#header {
+    grid-column: span 2;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    #title-main {
+        justify-self: start;
+    }
+
+    #demo-btn {
+        padding: calc(0 * var(--padding)) calc(0.5 * var(--padding));
+        border-radius: var(--corners);
+        
+        border: solid 1px var(--color-sec);
+        color: var(--color-sec);
+        background-color: var(--color-main);
+        
+        &:hover {
+            border: solid 1px var(--color-main);
+            color: var(--color-main);
+            background-color: var(--color-sec);
+        }
+    }   
+}
+
+#sidebar,
+.todo-card {
+    border-radius: var(--corners);
+}
+
+/* ============================================ Sidebar ============================================ */
+
+#sidebar {
+    background-color: var(--color-sec);
+    color: var(--color-main);
+
+    margin-left: var(--padding);
+    margin-bottom: var(--padding);
+
+    .title-sec {
+        justify-self: center;
+        margin-bottom: var(--padding);
+    }
+    
+    input, 
+    .sidebar-proj-list-name,
+    .del-val-name {
+        font-size: larger;
+    }
+
+    .del-confirm-message {
+        margin-left: calc(0.5 * var(--padding));
+    }
+
+    #projects-list {
+        .sidebar-project-li {
+            width: 100%;
+
+            margin-bottom: calc(0.5 * var(--spacing));
+            
+            .sidebar-proj-list-line {
+                display: grid;
+                grid-template-columns: auto 1fr min-content min-content;
+
+                align-items: center;
+
+                gap: calc(0.25 * var(--padding));
+
+                .sidebar-proj-list-name {
+                    display: -webkit-box; /* Use flexible box model to allow clamping */
+                    -webkit-box-orient: vertical; /* Set the orientation to vertical */
+                    overflow: hidden; /* Hide the overflowed content */
+                    -webkit-line-clamp: 1; /* Limit to 3 lines of text */
+                    text-overflow: ellipsis; /* Add ellipsis when content overflows */
+
+                    &:not(.current-filter):hover {
+                        transform: scale(1.1);
+                        cursor: pointer;
+                    }
+                    
+                    &.current-filter {
+                        font-weight: bold;
+                    }
+                }
+
+                .spacer {
+                    height: 0.5px;
+                    background-color: var(--color-main);
+                }
+            }
+        }
+    }
+
+    /* project-edit-line */
+    #add-project-btn-wrappper + .confirm-cancel-line {
+        margin-left: var(--spacing);
+    }
+    
+    #add-project-btn-wrappper {
+        justify-self: center;
+        /* margin-top: var(--spacing); */
+
+        #add-project-btn {
+            display: grid;
+            align-content: center;
+            justify-content: center;
+
+            background-color: var(--color-main);
+            
+            border: none;
+            --btn-size: calc(2 * var(--spacing));
+            
+            height: var(--btn-size);
+            width: var(--btn-size);
+            
+            border-radius: 50%;
+            
+            /* need shift btn txt */
+            div {
+                max-height: min-content;
+                max-width: min-content;
+
+                font-size: xx-large;
+                color: var(--color-sec);
+            }
+        }
+    }
+}
+
+/* ============================================ Main Content ============================================ */
+
+/* set first childs of todo data line to large font */
+#main-content {
+    padding-top: calc(-1 * var(--padding));
+
+    display: grid;
+    gap: var(--padding);
+    align-content: start;
+
+    #default-todo-card {
+        
+        #default-card-form-wrapper {
+            .new-card-title {
+                font-weight: bold;
+                font-size: larger;
+            }
+
+            #required-elm-note {
+                font-style: italic;
+                font-size: smaller;
+                margin-bottom: calc(0.5 * var(--spacing));
+            }
+                    
+            .required-elm {
+                color: red;
+            }
+        
+            .todo-input-line {
+                margin-bottom: calc(0.5 * var(--spacing));
+            }
+        }
+
+        button#submit-new-todo-button {
+            padding: calc(0 * var(--padding)) calc(0.5 * var(--padding));
+            border-radius: var(--corners);
+
+            border: solid 1px var(--color-main);
+            color: var(--color-main);
+            background-color: var(--color-sec);
+            
+            &:hover {
+                border: solid 1px var(--color-sec);
+                color: var(--color-sec);
+                background-color: var(--color-main);
+            }
+        }
+
+        button.add-sign {
+            margin: 0 auto;
+
+            display: grid;
+            align-content: center;
+            justify-content: center;
+
+            background-color: var(--color-main);
+            
+            border: none;
+            --btn-size: calc(2 * var(--spacing));
+            
+            height: var(--btn-size);
+            width: var(--btn-size);
+            
+            border-radius: 50%;
+            
+            /* need shift btn txt */
+            div {
+                max-height: min-content;
+                max-width: min-content;
+
+                font-size: xx-large;
+                color: var(--color-sec);
+            }
+        }
+
+        .default-todo-show-hide-details-btn-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .todo-card {
+        background-color: var(--color-sec);
+        color: var(--color-main);
+        
+        max-height: max-content;
+        
+        padding: var(--padding);
+        &:not(#default-todo-card) {
+            padding-bottom: calc(0.5 * var(--padding));
+        }
+        
+        .todo-data-line-wrapper {
+            margin-bottom: calc(0.25 * var(--spacing));
+            max-width: 100%; 
+            
+            * {
+                overflow: hidden;
+                text-overflow: ellipsis; /* Add ellipsis when content overflows */
+            }
+
+            .todo-data-line {
+                display: grid;
+                grid-template-columns: auto auto;
+                justify-content: start;
+                
+                .edit-btn {
+                    align-self: start;
+                    margin-top: calc(0.2 * var(--spacing));
+                    margin-right: calc(0.5 * var(--spacing));
+                }
+                
+                &.todo-data-line-title {
+                    .todo-title {
+                        font-size: x-large;
+                        font-weight: bold;
+                    }
+                 
+                    .edit-btn {
+                        margin-top: calc(0.55 * var(--spacing));
+                    }
+                }
+            }
+        }
+            
+        .todo-card-btns-wrapper {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+
+            .todo-del-btn-wrapper {
+                margin-left: auto;
+            }
+        }
+    }
+
+    .todo-card.high-priority {
+        background-color: firebrick;
+        color: var(--color-sec);
+    }
+
+    .todo-card.med-priority {
+        background-color: rgb(238, 131, 0);
+        color: var(--color-sec);
+    }
+
+    .todo-card.low-priority {
+        background-color: rgb(255, 225, 58);
+    }
+
+    .todo-card.done-priority {
+        background-color: lightgreen;
+    }
+
+    /* def-todo-card non-detailed display */
+    .def-todo-card-abridged {
+        #default-card-form-wrapper {
+            display: none;
+        }
+    }
+}
+
+/* ============================================ Catch All ============================================ */
+
+.confirm-cancel-line {
+    max-height: 10px;
+
+    input,
+    select,
+    textarea,
+    .todo-priority-input {
+        margin-right: calc(0.5 * var(--spacing));
+    }
+
+    button:not(.todo-priority-input) {
+        margin-left:  calc(0.25 * var(--padding));
+    }
+}
+
+.error-message {
+    font-style: italic;
+    font-size: small;
+    color: red;
+}
+
+.todo-card.high-priority .error-message,
+.todo-card.med-priority .error-message {
+    color: yellow;
+}
+
+
+/* special case error message, this could be needed for all edit lines */
+#add-project-btn-wrappper + .confirm-cancel-line .error-message {
+    margin-left: var(--spacing);
+}
+
+.del-confirm-message {
+    font-style: italic;
+}
+
+.del-val-name {
+    text-decoration: line-through;
+}
+
+input {
+    padding-left: calc(0.5 * var(--padding));
+    padding-right: calc(0.5 * var(--padding));
+
+    border: none;
+    outline: 1px grey solid;
+
+    border-radius: var(--corners);
+
+    &:hover,
+    &:focus {
+        outline: solid 2px black;
+    }
+}
+
+select {
+    padding: calc(0 * var(--padding)) calc(0.5 * var(--padding));
+    border-radius: var(--corners);
+
+    max-width: 7rem;
+
+    &:hover,
+    &:focus {
+        outline: solid 1px black;
+    }
+}
+
+textarea {
+    padding-left: calc(0.5 * var(--padding));
+    padding-right: calc(0.5 * var(--padding));
+    margin-bottom: calc(-0.25 * var(--padding));
+    
+    border: none;
+    outline: 1px grey solid;
+    
+    border-radius: var(--corners);
+    
+    &:hover,
+    &:focus {
+        outline: solid 2px black;
+    }
+}
+
+/* ===buttons=== */
+button {
+    border: none;
+    
+    &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+        /* border: black solid 1px; */
+    }
+}
+
+button.todo-priority-input {
+    padding: calc(0 * var(--padding)) calc(0.5 * var(--padding));
+    border-radius: var(--corners);
+}
+    
+button.todo-priority-input.high-priority {
+    color: var(--color-sec);
+    background-color: red;
+    border: solid white 1px;
+}
+
+button.done-priority {
+    color: var(--color-main);
+    background-color: greenyellow;
+    border: solid var(--color-main) 1px;
+
+    &#todo-priority-input{
+        border-color: var(--color-sec);
+    }
+}
+
+button.low-priority {
+    color: var(--color-main);
+    background-color: yellow;
+    border: solid var(--color-main) 1px;
+    
+    &#todo-priority-input{
+        border-color: var(--color-sec);
+    }
+}
+
+button.med-priority {
+    color: var(--color-sec);
+    background-color: orange;
+    border: solid var(--color-sec) 1px;
+}
+
+.show-hide-details-btn {
+    background-color: transparent;
+    
+    &:not(.add-sign) div {
+        max-height: min-content;
+        max-width: min-content;
+    }
+    
+    &.up-arrow div{
+        color: var(--color-main);
+        border-bottom: 1px solid var(--color-main);        
+    }
+    
+    &.down-arrow div{
+        color: var(--color-main);
+        border-top: 1px solid var(--color-main);        
+        margin-bottom: calc(-0.5 * var(--spacing));
+    }
+}
+
+/* up arrow on todo card with high/med priority */
+.todo-card.high-priority .show-hide-details-btn.up-arrow div,
+.todo-card.med-priority .show-hide-details-btn.up-arrow div {
+    border: none;
+    color: var(--color-sec);
+    border-bottom: 1px solid var(--color-sec);
+}
+
+/* down arrow on todo card with high/med priority */
+.todo-card.high-priority .show-hide-details-btn.down-arrow div,
+.todo-card.med-priority .show-hide-details-btn.down-arrow div {
+    border: none;
+    color: var(--color-sec);
+    border-top: 1px solid var(--color-sec);
+}
+
+.confirm-btn {
+    background-color: var(--color-main);
+    color: var(--color-sec);
+    
+    font-size: smaller;
+    font-weight: bold;
+    
+    --btn-size: calc(1.25 * var(--spacing));
+    height: var(--btn-size);
+    width: var(--btn-size);
+    
+    border: none;
+    border-radius: 50%;
+}
+
+.cancel-btn {
+    background-color: dodgerblue;
+    color: var(--color-sec);
+    
+    font-size: smaller;
+    font-weight: bolder;
+    
+    --btn-size: calc(1.25 * var(--spacing));
+    height: var(--btn-size);
+    width: var(--btn-size);
+    
+    border: none;
+    border-radius: 50%;
+
+    transform: scale(1.05);
+}
+
+.edit-btn {
+    background-color: dodgerblue;
+    color: var(--color-sec);
+    
+    font-size: smaller;
+    
+    --btn-size: calc(1.25 * var(--spacing));
+    height: var(--btn-size);
+    width: var(--btn-size);
+    
+    border: none;
+    border-radius: 50%;
+}
+
+.del-btn {
+    background-color: red;
+    color: var(--color-sec);
+    
+    font-size: smaller;
+    font-weight: bolder;
+    
+    --btn-size: calc(1.25 * var(--spacing));
+    height: var(--btn-size);
+    width: var(--btn-size);
+    
+    border: none;
+    border-radius: 50%;
+}
+
+.todo-card .del-btn {
+    margin-right: calc(-0.5 * var(--spacing));
+}
