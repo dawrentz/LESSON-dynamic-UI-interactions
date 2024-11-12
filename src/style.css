@@ -4,6 +4,7 @@
 
 :root {
   /* variables */
+  --spacing: 1rem;
 
   /* debugging */
   * {
@@ -13,4 +14,68 @@
 
 body {
   background-color: aquamarine;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  > * {
+    margin: var(--spacing);
+  }
+}
+
+#header {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  #nav-div {
+    background-color: white;
+
+    padding: calc(0.5 * var(--spacing));
+
+    width: calc(10 * var(--spacing));
+
+    justify-self: end;
+    text-align: center;
+
+    &:hover {
+    }
+
+    #nav-drop-down-menu {
+      text-align: start;
+      position: absolute;
+      right: var(--spacing);
+      top: calc(4 * var(--spacing));
+
+      width: calc(10 * var(--spacing));
+
+      background-color: white;
+
+      .inner-nav-title {
+        text-align: center;
+        margin-bottom: calc(0.5 * var(--spacing));
+
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+
+        &:hover {
+          background-color: black;
+          color: white;
+
+          cursor: pointer;
+          font-weight: bold;
+        }
+      }
+
+      max-height: fit-content;
+
+      &.hidden {
+        max-height: 0;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+#main-content {
+  /* text-align: end; */
 }
