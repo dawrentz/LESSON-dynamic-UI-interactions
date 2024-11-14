@@ -96,18 +96,25 @@ body {
 }
 
 #main-content {
+  /* cuts off the wide imgContainer div */
+  overflow: hidden;
+
   #img-carousel-container {
     /* background-color: palevioletred; */
-    overflow: hidden;
 
+    margin: 0 auto;
     margin-bottom: var(--spacing);
 
+    max-width: var(--img-width);
+
     #all-carousel-images {
-      /* background-color: palegoldenrod; */
       position: relative;
 
-      /* this center the first picture. The img is move from the left 1/2 the viewport width  minus one half the pic width minus the margin*/
-      left: calc(50vw - var(--img-width) / 2);
+      /* 
+      -init as center the first picture. The img is moved from the left 1/2 the viewport width  minus one half the pic width
+      -js will edit this to "slide" the wide imgContainer into view.
+      */
+      /* right: calc(0 * (var(--img-width) + 2rem)); */
 
       display: flex;
       gap: calc(2 * var(--spacing));
@@ -129,6 +136,8 @@ body {
     justify-content: center;
     gap: 0.75rem;
 
+    margin-bottom: var(--spacing);
+
     .img-nav-circle {
       --circle-size: 0.666rem;
 
@@ -140,6 +149,7 @@ body {
 
       &.selected {
         transform: scale(1.5);
+        background-color: white;
       }
 
       &:hover {
