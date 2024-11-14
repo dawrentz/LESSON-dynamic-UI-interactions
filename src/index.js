@@ -1,18 +1,21 @@
 //index.js
 
 import "./style.css";
+import * as imgCarouselModule from "./imgCarouselModule.js";
+import * as dropdownModule from "./dropdownModule.js";
 
+//declarations
 const navDiv = document.querySelector("#nav-div");
 const navDropDown = document.querySelector("#nav-drop-down-menu");
+const imgsInCarouselContainer = document.querySelector("#all-carousel-images");
+const imgNavCirclesContainer = document.querySelector("#img-nav-circles");
 
-dropdownEventHandler(navDiv, navDropDown);
+// ====================================== Init ====================================== //
 
-function dropdownEventHandler(eventElm, dropdownElm) {
-  eventElm.addEventListener("mouseover", () => {
-    dropdownElm.classList.remove("hidden");
+dropdownModule.dropdownEventHandler(navDiv, navDropDown);
 
-    eventElm.addEventListener("mouseout", () => {
-      dropdownElm.classList.add("hidden");
-    });
-  });
-}
+imgCarouselModule.IDstampImgsInCarousel(imgsInCarouselContainer);
+imgCarouselModule.renderImgNavCircles(
+  imgsInCarouselContainer,
+  imgNavCirclesContainer
+);

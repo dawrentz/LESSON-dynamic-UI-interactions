@@ -5,6 +5,7 @@
 :root {
   /* variables */
   --spacing: 1rem;
+  --img-width: 30rem;
 
   /* debugging */
   * {
@@ -13,69 +14,138 @@
 }
 
 body {
-  background-color: aquamarine;
+  background-color: lightgray;
 
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
-  > * {
-    margin: var(--spacing);
-  }
+  min-width: var(--img-width);
 }
 
 #header {
-  display: grid;
+  margin: var(--spacing);
 
-  grid-template-columns: repeat(2, 1fr);
+  min-width: fit-content;
+
+  display: grid;
+  align-items: start;
+
+  grid-template-columns: repeat(2, auto);
 
   #nav-div {
-    background-color: white;
-
-    padding: calc(0.5 * var(--spacing));
-
-    width: calc(10 * var(--spacing));
-
     justify-self: end;
+
+    background-color: white;
     text-align: center;
+
+    /* 
+    challenges with the sizing/positioning the drop-down-menu:
+
+      -the drop-down-menu needs "position: absolute" to not disrupt DOM flow when revealed
+
+      -i'm placing the drop-down-menu inside the nav-div (where the user hovers over) because it allows the absolute-position to
+        automatically render at the right spot (under the nav-div's title)
+
+      -to automatically position the drop-down-menu in the correct vertical position, the nav-div title must fill the un-hovered-nav-div
+        (drop-down-menu starts below that div, which now corresponds with the bottom edge of the nav-div)
+
+    */
+
+    /* drop-down-menu is init hidden, so the max-height here is just the h3 element */
+    height: min-content;
+    /* the drop-down-menu width inherits nav-div's */
+    width: 10rem;
+
+    h3 {
+      /* padding top and bottom of the h3 sets nav-div height, and makes the drop-down-menu start at bottom edge of nav-div*/
+      padding: 0.5rem 0;
+    }
 
     &:hover {
     }
 
     #nav-drop-down-menu {
-      text-align: start;
+      z-index: 1;
       position: absolute;
-      right: var(--spacing);
-      top: calc(4 * var(--spacing));
-
-      width: calc(10 * var(--spacing));
 
       background-color: white;
 
+      width: inherit;
+
+      &.hidden {
+        max-height: 0;
+        overflow: hidden;
+      }
+
       .inner-nav-title {
-        text-align: center;
-        margin-bottom: calc(0.5 * var(--spacing));
+        margin-bottom: 0.5rem;
+        padding: 0.25rem 0;
 
         border-top: 1px solid black;
         border-bottom: 1px solid black;
 
         &:hover {
           background-color: black;
+          font-weight: bold;
           color: white;
 
           cursor: pointer;
-          font-weight: bold;
         }
-      }
-
-      max-height: fit-content;
-
-      &.hidden {
-        max-height: 0;
-        overflow: hidden;
       }
     }
   }
 }
 
 #main-content {
-  /* text-align: end; */
+  #img-carousel-container {
+    /* background-color: palevioletred; */
+    overflow: hidden;
+
+    margin-bottom: var(--spacing);
+
+    #all-carousel-images {
+      /* background-color: palegoldenrod; */
+      position: relative;
+
+      /* this center the first picture. The img is move from the left 1/2 the viewport width  minus one half the pic width minus the margin*/
+      left: calc(50vw - var(--img-width) / 2);
+
+      display: flex;
+      gap: calc(2 * var(--spacing));
+
+      img {
+        border-radius: 50%;
+        max-width: var(--img-width);
+        min-width: var(--img-width);
+        max-height: var(--img-width);
+        min-height: var(--img-width);
+
+        margin: auto;
+      }
+    }
+  }
+
+  #img-nav-circles {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+
+    .img-nav-circle {
+      --circle-size: 0.666rem;
+
+      height: var(--circle-size);
+      width: var(--circle-size);
+
+      background-color: rgb(117, 117, 117);
+      border-radius: 50%;
+
+      &.selected {
+        transform: scale(1.5);
+      }
+
+      &:hover {
+        transform: scale(1.5);
+        cursor: pointer;
+      }
+    }
+  }
 }
