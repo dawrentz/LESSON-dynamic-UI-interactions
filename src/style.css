@@ -110,10 +110,7 @@ body {
     #all-carousel-images {
       position: relative;
 
-      /* 
-      -init as center the first picture. The img is moved from the left 1/2 the viewport width  minus one half the pic width
-      -js will edit this to "slide" the wide imgContainer into view.
-      */
+      /* init as center the first picture. js will edit this to "slide" the wide imgContainer into view.*/
       /* right: calc(0 * (var(--img-width) + 2rem)); */
 
       display: flex;
@@ -131,30 +128,48 @@ body {
     }
   }
 
-  #img-nav-circles {
+  #nav-wrapper {
     display: flex;
     justify-content: center;
-    gap: 0.75rem;
+    align-items: center;
+    gap: var(--spacing);
 
-    margin-bottom: var(--spacing);
+    margin-bottom: 3rem;
 
-    .img-nav-circle {
-      --circle-size: 0.666rem;
-
-      height: var(--circle-size);
-      width: var(--circle-size);
-
-      background-color: rgb(117, 117, 117);
-      border-radius: 50%;
-
-      &.selected {
-        transform: scale(1.5);
-        background-color: white;
-      }
+    .arrow {
+      --arrow-size: 2rem;
+      width: var(--arrow-size);
+      height: var(--arrow-size);
 
       &:hover {
-        transform: scale(1.5);
+        transform: scale(1.25);
         cursor: pointer;
+      }
+    }
+
+    #img-nav-circles {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+
+      .img-nav-circle {
+        --circle-size: 0.666rem;
+
+        height: var(--circle-size);
+        width: var(--circle-size);
+
+        background-color: rgb(117, 117, 117);
+        border-radius: 50%;
+
+        &.selected {
+          transform: scale(1.5);
+          background-color: white;
+        }
+
+        &:hover {
+          transform: scale(1.5);
+          cursor: pointer;
+        }
       }
     }
   }
