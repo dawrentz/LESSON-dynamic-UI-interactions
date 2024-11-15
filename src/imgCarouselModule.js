@@ -92,7 +92,66 @@ function getAllCircles() {
   return allCircles;
 }
 
+// ====================================== For Arrows ====================================== //
+
+function clickCircle(shiftInt) {
+  const selectedCircleID = getSelectedCircleID();
+  const shiftedCircleID = getShiftedCircleID(selectedCircleID, shiftInt);
+
+  const circleToClick = getCircleByIDstamp(shiftedCircleID);
+  circleToClick.click();
+}
+
+function getShiftedCircleID(selectedCircleID, shiftInt) {
+  //the highest ID for a circle is the number of circles minus 1. Needed to make a loop
+  const highestCircleID = getAllCircles().length - 1;
+
+  //convert to nums for addition
+  let shiftedCircleID = +selectedCircleID + +shiftInt;
+
+  if (shiftedCircleID > highestCircleID) {
+    shiftedCircleID = 0;
+  }
+  if (shiftedCircleID < 0) {
+    shiftedCircleID = highestCircleID;
+  }
+
+  //convert back to string
+  return shiftedCircleID.toString();
+}
+
+function getSelectedCircleID() {
+  const selectedCircle = document.querySelector(".img-nav-circle.selected");
+  const selectedCircleID = selectedCircle.getAttribute("data-link-img-num");
+
+  return selectedCircleID;
+}
+
+function getCircleByIDstamp(circleIDstamp) {
+  const allCircles = getAllCircles();
+  let circleToReturn;
+
+  allCircles.forEach((circle) => {
+    const currentCircleIDstamp = circle.getAttribute("data-link-img-num");
+
+    if (currentCircleIDstamp === circleIDstamp) {
+      circleToReturn = circle;
+    }
+  });
+
+  return circleToReturn;
+}
+
 // ====================================== Event Listeners ====================================== //
+
+export function addELtoArrows(leftArrowElm) {
+  leftArrowElm.addEventListener("click", (event) => {
+    const arrowClicked = event.target;
+    const arrowShiftInt = arrowClicked.getAttribute("date-shift-int");
+
+    clickCircle(arrowShiftInt);
+  });
+}
 
 function addELtoCircle(carouselElm, circleElm) {
   circleElm.addEventListener("click", () => {

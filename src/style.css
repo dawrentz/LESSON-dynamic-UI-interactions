@@ -136,7 +136,7 @@ body {
 
     margin-bottom: 3rem;
 
-    .arrow {
+    .nav-arrow {
       --arrow-size: 2rem;
       width: var(--arrow-size);
       height: var(--arrow-size);
