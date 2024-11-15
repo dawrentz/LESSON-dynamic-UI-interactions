@@ -2,6 +2,34 @@
 
 //declarations
 const navCircleContainer = document.querySelector("#img-nav-circles");
+const rightArrow = document.querySelector("#right-nav-arrow");
+const imgsInCarouselContainer = document.querySelector("#all-carousel-images");
+const imgNavCirclesContainer = document.querySelector("#img-nav-circles");
+const navArrows = document.querySelectorAll(".nav-arrow");
+//init the timer
+// let timeoutId = setTimeout(rightArrow.click(), 5000);
+
+// ====================================== Major Funcitons ====================================== //
+{
+  //spacer
+}
+
+//init timer
+let timeoutId;
+resetTimer();
+
+export function initImgCarousel() {
+  //make nav circles dynamically (number of circles depends on number of imgs)
+  renderImgNavCircles(imgsInCarouselContainer, imgNavCirclesContainer);
+
+  //add ELs to nav arrows
+  navArrows.forEach((arrow) => {
+    addELtoArrows(arrow);
+  });
+
+  //add resetTimerELs to all navBar clickables
+  addresetTimerELtoAllNavBarClickables();
+}
 
 // ====================================== Carousel Logic ====================================== //
 {
@@ -16,12 +44,6 @@ function slideCarousel(carouselElm, circleElm) {
 }
 
 // ====================================== Images ====================================== //
-
-export function IDstampImgsInCarousel(carouselElm) {
-  const imgElmArray = collectImgElms(carouselElm);
-
-  IDstampElms("img-num", imgElmArray);
-}
 
 function findNumImgInCarousel(carouselElm) {
   const imgElmArray = collectImgElms(carouselElm);
@@ -92,7 +114,7 @@ function getAllCircles() {
   return allCircles;
 }
 
-// ====================================== For Arrows ====================================== //
+// ========== For Arrows ========== //
 
 function clickCircle(shiftInt) {
   const selectedCircleID = getSelectedCircleID();
@@ -158,6 +180,46 @@ function addELtoCircle(carouselElm, circleElm) {
     slideCarousel(carouselElm, circleElm);
     circleSelectedClassHandler(circleElm);
   });
+}
+
+// ========== For Timer ========== //
+{
+  //spacer
+}
+
+//add reset timer EL to all clickable elms in nav bar
+export function addresetTimerELtoAllNavBarClickables() {
+  const allClickables = gatherClickableNavBarElms();
+
+  allClickables.forEach((clickable) => {
+    clickable.addEventListener("click", () => {
+      resetTimer();
+    });
+  });
+}
+
+function handleNoNavBarClick() {
+  rightArrow.click();
+  resetTimer();
+}
+
+function resetTimer() {
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => {
+    handleNoNavBarClick();
+  }, 5000);
+}
+
+function gatherClickableNavBarElms() {
+  const allCircles = getAllCircles();
+  const allCirclesArray = Array.from(allCircles);
+
+  const allNavArrows = document.querySelectorAll(".nav-arrow");
+  const allNavArrowsArray = Array.from(allNavArrows);
+
+  const allClickables = [...allCirclesArray, ...allNavArrowsArray];
+
+  return allClickables;
 }
 
 // ====================================== General ====================================== //
